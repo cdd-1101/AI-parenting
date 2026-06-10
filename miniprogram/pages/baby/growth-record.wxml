@@ -1,0 +1,158 @@
+<!--pages/baby/growth-record.wxml-->
+<!-- 成长记录 - 时间轴布局 -->
+<view class="page-container">
+  <!-- 顶部标题 -->
+  <view class="header-section gradient-primary">
+    <view class="header-row">
+      <view class="header-left">
+        <text class="header-title">成长记录</text>
+        <text class="header-desc">记录宝宝的每一步成长</text>
+      </view>
+      <view class="chart-entry" wx:if="{{hasGrowthData}}" bindtap="goGrowthChart">
+        <text class="chart-entry-icon">📈</text>
+        <text class="chart-entry-text">生长曲线</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 类型筛选标签 -->
+  <scroll-view class="filter-scroll" scroll-x enhanced show-scrollbar="{{false}}">
+    <view class="filter-bar">
+      <view class="filter-item {{activeType === '' ? 'active' : ''}}"
+        bindtap="onFilterTap" data-type="">
+        <text>全部</text>
+      </view>
+      <view class="filter-item {{activeType === item.type ? 'active' : ''}}"
+        wx:for="{{typeOptions}}" wx:key="type"
+        bindtap="onFilterTap" data-type="{{item.type}}">
+        <text>{{item.icon}} {{item.label}}</text>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 记录列表滚动区 -->
+  <scroll-view class="main-scroll" scroll-y show-scrollbar="{{false}}"
+    bindscrolltolower="loadMore">
+
+    <!-- 加载状态 -->
+    <view class="loading-container" wx:if="{{loading && records.length === 0}}">
+      <view class="skeleton-card" wx:for="{{[1,2,3,4]}}" wx:key="*this"></view>
+    </view>
+
+    <!-- 时间轴记录列表 -->
+    <view class="timeline-container" wx:if="{{dateGroups.length > 0}}">
+      <!-- 日期分组 -->
+      <view class="date-group" wx:for="{{dateGroups}}" wx:key="dateKey">
+        <!-- 日期标题 -->
+        <view class="date-header">
+          <view class="date-dot"></view>
+          <view class="date-info">
+            <text class="date-label">{{item.label}}</text>
+            <text class="date-weekday">{{item.weekDay}}</text>
+          </view>
+        </view>
+
+        <!-- 该日期下的记录 -->
+        <view class="timeline-items">
+          <view class="timeline-card" wx:for="{{item.items}}" wx:for-item="record" wx:key="id"
+            bindtap="viewRecord" data-id="{{record.id}}">
+            <!-- 左侧时间轴线 -->
+            <view class="timeline-line-area">
+              <view class="timeline-dot {{record.type}}"></view>
+              <view class="timeline-line" wx:if="{{index < item.items.length - 1}}"></view>
+            </view>
+
+            <!-- 卡片内容 -->
+            <view class="timeline-content">
+              <view class="card-top">
+                <view class="type-badge {{record.type}}">
+                  <text>{{typeIconMap[record.type]}}</text>
+                  <text class="type-text">{{typeNameMap[record.type]}}</text>
+                </view>
+                <text class="card-age">{{record.ageMonth}}月{{record.ageDay}}天</text>
+              </view>
+
+              <!-- 身高体重 -->
+              <view class="data-chips" wx:if="{{record.type === 'growth'}}">
+                <view class="chip">
+                  <text class="chip-label">身高</text>
+                  <text class="chip-val">{{record.data.height || '--'}} cm</text>
+                </view>
+                <view class="chip">
+                  <text class="chip-label">体重</text>
+                  <text class="chip-val">{{record.data.weight || '--'}} kg</text>
+                </view>
+                <view class="chip" wx:if="{{record.data.head}}">
+                  <text class="chip-label">头围</text>
+                  <text class="chip-val">{{record.data.head}} cm</text>
+                </view>
+              </view>
+
+              <!-- 喂养 -->
+              <view class="data-chips" wx:elif="{{record.type === 'feeding'}}">
+                <view class="chip">
+                  <text class="chip-label">类型</text>
+                  <text class="chip-val">{{record.data.feedType || '--'}}</text>
+                </view>
+                <view class="chip" wx:if="{{record.data.amount}}">
+                  <text class="chip-label">奶量</text>
+                  <text class="chip-val">{{record.data.amount}} ml</text>
+                </view>
+              </view>
+
+              <!-- 睡眠 -->
+              <view class="data-chips" wx:elif="{{record.type === 'sleep'}}">
+                <view class="chip">
+                  <text class="chip-label">时长</text>
+                  <text class="chip-val">{{record.data.duration || '--'}} h</text>
+                </view>
+                <view class="chip" wx:if="{{record.data.quality}}">
+                  <text class="chip-label">质量</text>
+                  <text class="chip-val">{{record.data.quality}}</text>
+                </view>
+              </view>
+
+              <!-- 里程碑 -->
+              <view class="milestone-row" wx:elif="{{record.type === 'milestone'}}">
+                <text class="milestone-text">🌟 {{record.data.milestone || '新里程碑'}}</text>
+              </view>
+
+              <!-- 其他 -->
+              <view class="note-row" wx:else>
+                <text class="note-preview" wx:if="{{record.note}}">{{record.note}}</text>
+              </view>
+
+              <!-- 备注 -->
+              <view class="card-note" wx:if="{{record.note && record.type !== 'milestone'}}">
+                <text>{{record.note}}</text>
+              </view>
+
+              <!-- 图片 -->
+              <view class="card-images" wx:if="{{record.images && record.images.length > 0}}">
+                <image class="thumb-img" wx:for="{{record.images}}" wx:for-item="img"
+                  wx:key="*this" src="{{img}}" mode="aspectFill" />
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 加载更多 -->
+    <view class="load-more" wx:if="{{hasMore && records.length > 0}}">
+      <text>{{loading ? '加载中...' : '上拉加载更多'}}</text>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{!loading && records.length === 0}}">
+      <text class="empty-icon">📋</text>
+      <text class="empty-title">暂无记录</text>
+      <text class="empty-desc">点击下方按钮添加第一条记录吧</text>
+    </view>
+  </scroll-view>
+
+  <!-- 浮动添加按钮 -->
+  <view class="fab-btn" bindtap="goAddRecord">
+    <text class="fab-icon">+</text>
+  </view>
+</view>

@@ -1,0 +1,74 @@
+<!--pages/chat/index.wxml-->
+<!-- AI 育儿助手 -->
+<view class="page-container chat-page">
+  <!-- 消息列表 -->
+  <scroll-view class="chat-scroll" scroll-y enhanced show-scrollbar="{{false}}"
+    scroll-into-view="msg-{{scrollToMsg}}" scroll-with-animation>
+    <view class="chat-messages">
+      <!-- 欢迎消息 -->
+      <view class="welcome-msg" wx:if="{{messages.length === 0}}">
+        <text class="welcome-emoji">🤖</text>
+        <text class="welcome-title">你好！我是安心育儿助手</text>
+        <text class="welcome-desc">我可以帮你解答关于宝宝发育、喂养、睡眠等方面的问题。\n\n试试问我：</text>
+        <view class="quick-questions">
+          <view class="quick-item" wx:for="{{quickQuestions}}" wx:key="*this"
+            bindtap="askQuickQuestion" data-q="{{item}}">
+            <text>{{item}}</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 消息气泡 -->
+      <view class="message {{item.role}}" wx:for="{{messages}}" wx:key="id"
+        id="msg-{{index}}">
+        <!-- AI 消息 -->
+        <block wx:if="{{item.role === 'assistant'}}">
+          <view class="avatar-bubble ai-avatar">🤖</view>
+          <view class="bubble ai-bubble">
+            <text class="bubble-text">{{item.content}}{{item.typing ? '▌' : ''}}</text>
+          </view>
+        </block>
+
+        <!-- 用户消息 -->
+        <block wx:else>
+          <view class="bubble user-bubble">
+            <text class="bubble-text">{{item.content}}</text>
+          </view>
+          <view class="avatar-bubble user-avatar">👤</view>
+        </block>
+      </view>
+
+      <!-- 加载中 -->
+      <view class="message assistant" wx:if="{{isLoading && !streamContent}}" id="msg-loading">
+        <view class="avatar-bubble ai-avatar">🤖</view>
+        <view class="bubble ai-bubble typing-bubble">
+          <view class="typing-dots">
+            <view class="dot"></view>
+            <view class="dot"></view>
+            <view class="dot"></view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 底部间距 -->
+      <view style="height: 20rpx;"></view>
+    </view>
+  </scroll-view>
+
+  <!-- 输入区 -->
+  <view class="input-bar safe-bottom">
+    <view class="input-wrapper">
+      <textarea class="chat-input" value="{{inputText}}"
+        bindinput="onInput" bindconfirm="sendMessage"
+        placeholder="输入你的问题..." maxlength="500"
+        auto-height confirm-type="send"
+        show-confirm-bar="{{false}}"
+        adjust-position="{{true}}"
+        cursor-spacing="20" />
+    </view>
+    <view class="send-btn {{inputText.trim() ? 'active' : ''}}"
+      bindtap="sendMessage">
+      <text>发送</text>
+    </view>
+  </view>
+</view>

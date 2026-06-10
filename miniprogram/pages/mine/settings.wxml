@@ -1,0 +1,55 @@
+<!--pages/mine/settings.wxml-->
+<!-- 设置 -->
+<view class="page-container">
+  <view class="menu-list card" style="margin: var(--space-lg);">
+    <view class="menu-item flex-between" bindtap="clearCache">
+      <view class="menu-left">
+        <text class="menu-icon">🗑️</text>
+        <text class="menu-label">清除缓存</text>
+      </view>
+      <text class="menu-extra">{{cacheSize}}</text>
+    </view>
+    <view class="menu-item flex-between" bindtap="toggleNotification">
+      <view class="menu-left">
+        <text class="menu-icon">🔔</text>
+        <text class="menu-label">消息提醒</text>
+      </view>
+      <switch checked="{{notification}}" color="#FF8A80" bindchange="toggleNotification" />
+    </view>
+    <view class="menu-item flex-between">
+      <view class="menu-left">
+        <text class="menu-icon">🌙</text>
+        <text class="menu-label">深色模式</text>
+      </view>
+      <text class="menu-extra">暂不支持</text>
+    </view>
+  </view>
+
+  <view class="menu-list card" style="margin: 0 var(--space-lg);">
+    <view class="menu-item flex-between" bindtap="showPrivacy">
+      <view class="menu-left">
+        <text class="menu-icon">🔒</text>
+        <text class="menu-label">隐私政策</text>
+      </view>
+      <text class="menu-arrow">></text>
+    </view>
+    <view class="menu-item flex-between" bindtap="showDisclaimer">
+      <view class="menu-left">
+        <text class="menu-icon">⚠️</text>
+        <text class="menu-label">免责声明</text>
+      </view>
+      <text class="menu-arrow">></text>
+    </view>
+    <view class="menu-item flex-between" bindtap="checkUpdate">
+      <view class="menu-left">
+        <text class="menu-icon">📦</text>
+        <text class="menu-label">检查更新</text>
+      </view>
+      <text class="menu-extra">v1.0.0</text>
+    </view>
+  </view>
+
+  <view class="logout-section">
+    <view class="btn-danger" bindtap="logout">退出登录</view>
+  </view>
+</view>

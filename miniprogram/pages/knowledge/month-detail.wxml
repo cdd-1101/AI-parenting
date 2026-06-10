@@ -1,0 +1,74 @@
+<!--pages/knowledge/month-detail.wxml-->
+<!-- 月龄知识详情 -->
+<view class="page-container">
+  <!-- 顶部月龄信息 -->
+  <view class="header-section gradient-primary">
+    <text class="header-title">{{monthTitle}}</text>
+    <text class="header-desc">全面了解宝宝的发育情况</text>
+  </view>
+
+  <!-- 板块导航标签 -->
+  <scroll-view class="tab-scroll" scroll-x enhanced show-scrollbar="{{false}}">
+    <view class="tab-bar">
+      <view class="tab-item {{activeTab === '' ? 'active' : ''}}"
+        bindtap="onTabTap" data-section="">
+        <text>全部</text>
+      </view>
+      <view class="tab-item {{activeTab === item.section ? 'active' : ''}}"
+        wx:for="{{sections}}" wx:key="section"
+        bindtap="onTabTap" data-section="{{item.section}}">
+        <text>{{item.icon}} {{item.sectionName}}</text>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 加载状态 -->
+  <view class="loading-container" wx:if="{{loading}}">
+    <view class="skeleton-block" wx:for="{{[1,2,3]}}" wx:key="*this"></view>
+  </view>
+
+  <!-- 内容区 -->
+  <scroll-view class="content-scroll" scroll-y
+    scroll-into-view="section-{{activeTab}}"
+    enhanced show-scrollbar="{{false}}">
+
+    <!-- 全部板块 -->
+    <block wx:if="{{activeTab === ''}}">
+      <view class="section-block" wx:for="{{sections}}" wx:key="section"
+        id="section-{{item.section}}">
+        <view class="section-header-bar">
+          <text class="section-icon">{{item.icon}}</text>
+          <text class="section-name">{{item.sectionName}}</text>
+        </view>
+        <view class="section-card card">
+          <text class="section-title">{{item.title}}</text>
+          <text class="section-summary">{{item.summary}}</text>
+          <view class="section-content">
+            <text class="content-text">{{item.content}}</text>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!-- 单个板块 -->
+    <block wx:else>
+      <view class="section-block" wx:for="{{filteredSections}}" wx:key="section"
+        id="section-{{item.section}}">
+        <view class="section-header-bar">
+          <text class="section-icon">{{item.icon}}</text>
+          <text class="section-name">{{item.sectionName}}</text>
+        </view>
+        <view class="section-card card">
+          <text class="section-title">{{item.title}}</text>
+          <text class="section-summary">{{item.summary}}</text>
+          <view class="section-content">
+            <text class="content-text">{{item.content}}</text>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!-- 底部间距 -->
+    <view style="height: 60rpx;"></view>
+  </scroll-view>
+</view>

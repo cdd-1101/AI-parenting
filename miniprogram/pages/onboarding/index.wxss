@@ -1,0 +1,336 @@
+/* pages/onboarding/index.wxss */
+
+.onboarding-container {
+  min-height: 100vh;
+  background: var(--color-bg);
+  display: flex;
+  flex-direction: column;
+  padding-top: 120rpx;
+}
+
+/* 进度条 */
+.progress-bar {
+  height: 6rpx;
+  background: var(--color-border);
+  margin: 0 var(--space-lg);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: var(--radius-full);
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  font-size: 22rpx;
+  color: var(--color-text-hint);
+  text-align: right;
+  padding: var(--space-xs) var(--space-lg);
+}
+
+/* 步骤容器 */
+.step {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-xl) var(--space-lg);
+}
+
+/* ========== Step 1: 欢迎页 ========== */
+.welcome-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 60rpx;
+}
+
+.welcome-emoji {
+  font-size: 120rpx;
+  margin-bottom: var(--space-lg);
+}
+
+.welcome-title {
+  font-size: 44rpx;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-md);
+}
+
+.welcome-desc {
+  font-size: 28rpx;
+  color: var(--color-text-secondary);
+  text-align: center;
+  line-height: 1.8;
+  margin-bottom: var(--space-xl);
+}
+
+.feature-list {
+  width: 100%;
+  padding: 0 var(--space-lg);
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  padding: var(--space-md) var(--space-lg);
+  background: var(--color-bg-card);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-sm);
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.04);
+}
+
+.feature-icon {
+  font-size: 44rpx;
+  margin-right: var(--space-md);
+}
+
+.feature-text {
+  font-size: 28rpx;
+  color: var(--color-text-primary);
+  font-weight: 500;
+}
+
+/* ========== Step 2-5: 表单步骤 ========== */
+.step-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 40rpx;
+}
+
+.step-emoji {
+  font-size: 80rpx;
+  margin-bottom: var(--space-lg);
+}
+
+.step-title {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  text-align: center;
+  margin-bottom: var(--space-sm);
+}
+
+.step-desc {
+  font-size: 26rpx;
+  color: var(--color-text-secondary);
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+/* 输入框 */
+.step-input {
+  width: 100%;
+  height: 100rpx;
+  background: var(--color-bg-card);
+  border: 2rpx solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 0 var(--space-lg);
+  font-size: 32rpx;
+  color: var(--color-text-primary);
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.step-input:focus {
+  border-color: var(--color-primary);
+}
+
+/* 性别选择 */
+.gender-selector {
+  display: flex;
+  gap: var(--space-lg);
+  width: 100%;
+  justify-content: center;
+}
+
+.gender-option {
+  width: 280rpx;
+  height: 280rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg-card);
+  border: 3rpx solid var(--color-border);
+  border-radius: var(--radius-lg);
+  transition: all 0.2s ease;
+}
+
+.gender-option.active {
+  border-color: var(--color-primary);
+  background: #FFF0EE;
+  box-shadow: 0 4rpx 16rpx rgba(255, 138, 128, 0.15);
+}
+
+.gender-emoji {
+  font-size: 72rpx;
+  margin-bottom: var(--space-sm);
+}
+
+.gender-label {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.gender-option.active .gender-label {
+  color: var(--color-primary);
+}
+
+/* 日期选择器 */
+.date-picker {
+  width: 100%;
+  height: 100rpx;
+  background: var(--color-bg-card);
+  border: 2rpx solid var(--color-border);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  color: var(--color-text-primary);
+  box-sizing: border-box;
+}
+
+.date-picker.has-value {
+  border-color: var(--color-primary);
+}
+
+.date-picker .placeholder {
+  color: var(--color-text-hint);
+}
+
+/* 喂养方式选择 */
+.feeding-options {
+  display: flex;
+  gap: var(--space-md);
+  width: 100%;
+  justify-content: center;
+}
+
+.feeding-option {
+  flex: 1;
+  max-width: 200rpx;
+  height: 200rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg-card);
+  border: 3rpx solid var(--color-border);
+  border-radius: var(--radius-lg);
+  transition: all 0.2s ease;
+}
+
+.feeding-option.active {
+  border-color: var(--color-primary);
+  background: #FFF0EE;
+  box-shadow: 0 4rpx 16rpx rgba(255, 138, 128, 0.15);
+}
+
+.feeding-emoji {
+  font-size: 56rpx;
+  margin-bottom: var(--space-sm);
+}
+
+.feeding-label {
+  font-size: 24rpx;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  text-align: center;
+}
+
+.feeding-option.active .feeding-label {
+  color: var(--color-primary);
+}
+
+/* ========== Step 6: 完成页 ========== */
+.complete-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 40rpx;
+}
+
+.complete-emoji {
+  font-size: 100rpx;
+  margin-bottom: var(--space-md);
+}
+
+.complete-title {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-lg);
+}
+
+.baby-summary {
+  width: 100%;
+  margin: 0;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-md) 0;
+  border-bottom: 1rpx solid var(--color-border);
+}
+
+.summary-row:last-child {
+  border-bottom: none;
+}
+
+.summary-label {
+  font-size: 28rpx;
+  color: var(--color-text-secondary);
+}
+
+.summary-value {
+  font-size: 28rpx;
+  color: var(--color-text-primary);
+  font-weight: 500;
+}
+
+.complete-desc {
+  font-size: 26rpx;
+  color: var(--color-text-secondary);
+  margin-top: var(--space-lg);
+}
+
+/* ========== 底部按钮 ========== */
+.bottom-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-lg);
+  gap: var(--space-md);
+}
+
+.btn-back {
+  font-size: 28rpx;
+  color: var(--color-text-secondary);
+  padding: var(--space-sm) var(--space-lg);
+}
+
+.btn-skip {
+  font-size: 28rpx;
+  color: var(--color-text-hint);
+  padding: var(--space-sm) var(--space-lg);
+}
+
+.btn-next {
+  flex: 1;
+  max-width: 480rpx;
+}
+
+.btn-start {
+  flex: 1;
+  max-width: 560rpx;
+  padding: 24rpx 0;
+  font-size: 32rpx;
+}

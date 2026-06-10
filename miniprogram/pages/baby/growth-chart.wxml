@@ -1,0 +1,67 @@
+<!--pages/baby/growth-chart.wxml-->
+<!-- 生长曲线 - 独立页面 -->
+<view class="page-container">
+  <!-- 顶部信息 -->
+  <view class="header-section gradient-primary">
+    <text class="header-title">🌱 生长曲线</text>
+    <text class="header-desc">追踪宝宝的身高体重变化趋势</text>
+  </view>
+
+  <!-- 类型切换 -->
+  <view class="chart-tabs-wrapper">
+    <view class="chart-tabs">
+      <view class="chart-tab {{chartType === 'height' ? 'active' : ''}}" 
+        bindtap="switchChart" data-type="height">
+        <text class="tab-icon">📏</text>
+        <text class="tab-text">身高</text>
+      </view>
+      <view class="chart-tab {{chartType === 'weight' ? 'active' : ''}}" 
+        bindtap="switchChart" data-type="weight">
+        <text class="tab-icon">⚖️</text>
+        <text class="tab-text">体重</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 图表区域 -->
+  <view class="chart-section">
+    <view class="chart-wrapper" wx:if="{{growthData.length > 1}}">
+      <canvas type="2d" id="growthChart" class="growth-canvas"></canvas>
+    </view>
+    <view class="chart-empty" wx:else>
+      <text class="chart-empty-icon">📊</text>
+      <text class="chart-empty-text">需要至少2条身高体重记录才能生成曲线</text>
+    </view>
+  </view>
+
+  <!-- 数据统计 -->
+  <view class="stats-section" wx:if="{{growthData.length > 1}}">
+    <view class="stat-row">
+      <view class="stat-item">
+        <text class="stat-label">记录次数</text>
+        <text class="stat-value">{{validCount}}</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-label">最新数值</text>
+        <text class="stat-value">{{latestValue}} <text class="stat-unit">{{chartType === 'height' ? 'cm' : 'kg'}}</text></text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-label">变化幅度</text>
+        <text class="stat-value">{{changeAmount}} <text class="stat-unit">{{chartType === 'height' ? 'cm' : 'kg'}}</text></text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 数据列表 -->
+  <view class="data-section" wx:if="{{growthData.length > 0}}">
+    <text class="section-title">历史数据</text>
+    <view class="data-list">
+      <view class="data-row" wx:for="{{growthData}}" wx:key="index">
+        <text class="data-date">{{item.date}}</text>
+        <text class="data-age">{{item.ageMonth}}月{{item.ageDay}}天</text>
+        <text class="data-value" wx:if="{{chartType === 'height'}}">{{item.height || '--'}} cm</text>
+        <text class="data-value" wx:else>{{item.weight || '--'}} kg</text>
+      </view>
+    </view>
+  </view>
+</view>

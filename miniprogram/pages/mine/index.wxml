@@ -1,0 +1,130 @@
+<!--pages/mine/index.wxml-->
+<!-- 个人中心 -->
+<view class="page-container">
+  <!-- 用户信息区 -->
+  <view class="user-section gradient-primary">
+    <view class="user-info">
+      <image class="user-avatar" src="{{userInfo.avatarUrl || '/assets/icons/default-user.png'}}" mode="aspectFill" />
+      <view class="user-detail">
+        <text class="user-name">{{userInfo.nickname || '用户'}}</text>
+        <text class="user-role">{{roleText}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 宝宝信息卡片 -->
+  <view class="baby-section" wx:if="{{babyInfo}}">
+    <view class="section-header flex-between">
+      <text class="section-title">我的宝宝</text>
+      <text class="section-link" bindtap="editBaby">编辑 ></text>
+    </view>
+    <view class="baby-card card" bindtap="goBabyProfile">
+      <view class="baby-card-top">
+        <image class="baby-avatar" src="{{babyInfo.avatarUrl || '/assets/icons/default-avatar.png'}}" mode="aspectFill" />
+        <view class="baby-info">
+          <text class="baby-name">{{babyInfo.nickname}}</text>
+          <text class="baby-age">{{ageText}}</text>
+        </view>
+        <text class="baby-gender-emoji">{{babyInfo.gender === 'male' ? '👦' : '👧'}}</text>
+      </view>
+      <view class="baby-stats-row" wx:if="{{latestGrowth}}">
+        <view class="baby-stat">
+          <text class="stat-num">{{latestGrowth.height || '--'}}</text>
+          <text class="stat-unit">cm 身高</text>
+        </view>
+        <view class="stat-divider"></view>
+        <view class="baby-stat">
+          <text class="stat-num">{{latestGrowth.weight || '--'}}</text>
+          <text class="stat-unit">kg 体重</text>
+        </view>
+        <view class="stat-divider"></view>
+        <view class="baby-stat">
+          <text class="stat-num">{{feedingTypeText}}</text>
+          <text class="stat-unit">喂养方式</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 无宝宝信息提示 -->
+  <view class="no-baby card" wx:if="{{!babyInfo}}" bindtap="goOnboarding">
+    <text class="no-baby-emoji">👶</text>
+    <view class="no-baby-text">
+      <text class="no-baby-title">还没有添加宝宝信息</text>
+      <text class="no-baby-desc">点击添加，开始记录宝宝的成长</text>
+    </view>
+    <text class="no-baby-arrow">></text>
+  </view>
+
+  <!-- 功能菜单 -->
+  <view class="menu-section">
+    <view class="section-header">
+      <text class="section-title">功能</text>
+    </view>
+    <view class="menu-list card">
+      <view class="menu-item flex-between" bindtap="goBabyProfile">
+        <view class="menu-left">
+          <text class="menu-icon">👶</text>
+          <text class="menu-label">宝宝档案</text>
+        </view>
+        <text class="menu-arrow">></text>
+      </view>
+      <view class="menu-item flex-between" bindtap="goGrowthRecord">
+        <view class="menu-left">
+          <text class="menu-icon">📏</text>
+          <text class="menu-label">成长记录</text>
+        </view>
+        <text class="menu-arrow">></text>
+      </view>
+      <view class="menu-item flex-between" bindtap="goMonthlyReport">
+        <view class="menu-left">
+          <text class="menu-icon">📊</text>
+          <text class="menu-label">月度报告</text>
+        </view>
+        <text class="menu-arrow">></text>
+      </view>
+      <view class="menu-item flex-between" bindtap="goFavorites">
+        <view class="menu-left">
+          <text class="menu-icon">⭐</text>
+          <text class="menu-label">我的收藏</text>
+        </view>
+        <text class="menu-arrow">></text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 设置菜单 -->
+  <view class="menu-section">
+    <view class="section-header">
+      <text class="section-title">其他</text>
+    </view>
+    <view class="menu-list card">
+      <view class="menu-item flex-between" bindtap="goChatHistory">
+        <view class="menu-left">
+          <text class="menu-icon">💬</text>
+          <text class="menu-label">对话历史</text>
+        </view>
+        <text class="menu-arrow">></text>
+      </view>
+      <view class="menu-item flex-between" bindtap="goSettings">
+        <view class="menu-left">
+          <text class="menu-icon">⚙️</text>
+          <text class="menu-label">设置</text>
+        </view>
+        <text class="menu-arrow">></text>
+      </view>
+      <view class="menu-item flex-between" bindtap="showAbout">
+        <view class="menu-left">
+          <text class="menu-icon">ℹ️</text>
+          <text class="menu-label">关于我们</text>
+        </view>
+        <text class="menu-arrow">></text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部版本信息 -->
+  <view class="version-info">
+    <text class="version-text">安心育儿 v1.0.0</text>
+  </view>
+</view>

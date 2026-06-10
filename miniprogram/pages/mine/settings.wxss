@@ -1,0 +1,62 @@
+/* pages/mine/settings.wxss */
+
+.menu-list {
+  padding: 0;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-md) var(--space-lg);
+  border-bottom: 1rpx solid var(--color-border);
+}
+
+.menu-item:last-child {
+  border-bottom: none;
+}
+
+.menu-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.menu-icon {
+  font-size: 32rpx;
+}
+
+.menu-label {
+  font-size: 28rpx;
+  color: var(--color-text-primary);
+}
+
+.menu-extra {
+  font-size: 24rpx;
+  color: var(--color-text-hint);
+}
+
+.menu-arrow {
+  font-size: 28rpx;
+  color: var(--color-text-hint);
+}
+
+/* 退出登录 */
+.logout-section {
+  padding: var(--space-xl) var(--space-lg);
+}
+
+.btn-danger {
+  text-align: center;
+  padding: var(--space-md) 0;
+  background: #FFFFFF;
+  border: 2rpx solid #E53935;
+  border-radius: var(--radius-lg);
+  font-size: 28rpx;
+  color: #E53935;
+  font-weight: 500;
+}
+
+.btn-danger:active {
+  background: #FFEBEE;
+}

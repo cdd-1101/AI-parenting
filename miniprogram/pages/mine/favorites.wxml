@@ -1,0 +1,45 @@
+<!--pages/mine/favorites.wxml-->
+<!-- 我的收藏 -->
+<view class="page-container">
+  <view class="header-section gradient-primary">
+    <text class="header-title">我的收藏</text>
+    <text class="header-desc">收藏的知识和对话</text>
+  </view>
+
+  <!-- 类型标签 -->
+  <view class="tab-bar">
+    <view class="tab-item {{activeTab === '' ? 'active' : ''}}"
+      bindtap="onTabTap" data-tab="">全部</view>
+    <view class="tab-item {{activeTab === 'knowledge' ? 'active' : ''}}"
+      bindtap="onTabTap" data-tab="knowledge">知识</view>
+    <view class="tab-item {{activeTab === 'conversation' ? 'active' : ''}}"
+      bindtap="onTabTap" data-tab="conversation">对话</view>
+  </view>
+
+  <!-- 加载 -->
+  <view class="loading-container" wx:if="{{loading}}">
+    <view class="skeleton-card" wx:for="{{[1,2,3]}}" wx:key="*this"></view>
+  </view>
+
+  <!-- 收藏列表 -->
+  <view class="fav-list" wx:if="{{!loading}}">
+    <view class="fav-item card" wx:for="{{filteredFavorites}}" wx:key="id"
+      bindtap="openFavorite" data-item="{{item}}">
+      <view class="fav-header">
+        <text class="fav-type {{item.targetType}}">{{typeLabel[item.targetType]}}</text>
+        <text class="fav-time">{{item.timeText}}</text>
+      </view>
+      <text class="fav-title">{{item.title || '收藏内容'}}</text>
+      <view class="fav-actions">
+        <text class="unfav-btn" catchtap="removeFavorite" data-id="{{item.id}}">取消收藏</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{!loading && filteredFavorites.length === 0}}">
+    <text class="empty-icon">⭐</text>
+    <text class="empty-title">暂无收藏</text>
+    <text class="empty-desc">浏览知识或对话时点击收藏按钮即可添加</text>
+  </view>
+</view>

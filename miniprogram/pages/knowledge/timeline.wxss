@@ -1,0 +1,201 @@
+/* pages/knowledge/timeline.wxss */
+
+/* 顶部标题区 */
+.header-section {
+  padding: var(--space-lg);
+  padding-bottom: var(--space-xl);
+}
+
+.header-title {
+  display: block;
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: var(--space-xs);
+}
+
+.header-desc {
+  display: block;
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.current-age-bar {
+  margin-top: var(--space-md);
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-md);
+  padding: var(--space-sm) var(--space-md);
+}
+
+.current-age-text {
+  font-size: 26rpx;
+  color: #FFFFFF;
+  font-weight: 500;
+}
+
+/* 加载状态 */
+.loading-container {
+  padding: var(--space-lg);
+}
+
+.skeleton-card {
+  height: 120rpx;
+  background: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-md);
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* 时间线滚动容器 */
+.timeline-scroll {
+  height: calc(100vh - 280rpx);
+}
+
+/* 时间线列表 */
+.timeline-list {
+  padding: var(--space-sm) var(--space-md) var(--space-md) 0;
+}
+
+/* 时间线项 */
+.timeline-item {
+  display: flex;
+  padding-left: var(--space-lg);
+  padding-bottom: var(--space-xs);
+}
+
+/* 左侧时间线 */
+.timeline-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: var(--space-md);
+  width: 48rpx;
+}
+
+.timeline-dot {
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: 50%;
+  background: var(--color-bg-card);
+  border: 3rpx solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  z-index: 1;
+}
+
+.timeline-dot.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.dot-num {
+  font-size: 20rpx;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+}
+
+.timeline-dot.active .dot-num {
+  color: #FFFFFF;
+}
+
+.timeline-line {
+  width: 2rpx;
+  flex: 1;
+  background: var(--color-border);
+  margin-top: 4rpx;
+}
+
+/* 月龄卡片 - 紧凑行样式 */
+.month-card {
+  flex: 1;
+  background: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  margin-bottom: 0;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.04);
+}
+
+.current-month-card {
+  border: 2rpx solid var(--color-primary);
+  box-shadow: 0 4rpx 12rpx rgba(255, 138, 128, 0.15);
+}
+
+.card-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.card-left {
+  flex: 1;
+  min-width: 0;
+}
+
+.month-title {
+  display: block;
+  font-size: 30rpx;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: 4rpx;
+}
+
+.month-summary {
+  display: block;
+  font-size: 24rpx;
+  color: var(--color-text-hint);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.current-tag {
+  background: var(--color-primary);
+  border-radius: var(--radius-sm);
+  padding: 2rpx 12rpx;
+  flex-shrink: 0;
+}
+
+.current-tag text {
+  font-size: 20rpx;
+  color: #FFFFFF;
+  font-weight: 500;
+}
+
+.arrow {
+  font-size: 36rpx;
+  color: var(--color-text-hint);
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 120rpx var(--space-lg);
+}
+
+.empty-icon {
+  font-size: 80rpx;
+  margin-bottom: var(--space-lg);
+}
+
+.empty-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-sm);
+}
+
+.empty-desc {
+  font-size: 26rpx;
+  color: var(--color-text-secondary);
+}

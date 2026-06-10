@@ -1,0 +1,85 @@
+<!--pages/home/index.wxml-->
+<view class="page-container">
+  <!-- 宝宝日龄卡片 -->
+  <view class="baby-card gradient-primary card-animate" wx:if="{{babyInfo}}">
+    <view class="baby-card-inner">
+      <image class="baby-avatar" src="{{babyInfo.avatar || '/assets/icons/default-avatar.png'}}" mode="aspectFill" />
+      <view class="baby-info">
+        <text class="baby-name">{{babyInfo.nickname}}</text>
+        <text class="baby-age">今天 {{ageInfo.totalDays}} 天啦</text>
+        <text class="baby-age-sub">{{ageInfo.ageText}}</text>
+      </view>
+      <view class="baby-stats">
+        <view class="stat-item" wx:if="{{latestGrowth}}">
+          <text class="stat-value">{{latestGrowth.height}}</text>
+          <text class="stat-label">身高cm</text>
+        </view>
+        <view class="stat-item" wx:if="{{latestGrowth}}">
+          <text class="stat-value">{{latestGrowth.weight}}</text>
+          <text class="stat-label">体重kg</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 快捷功能入口 -->
+  <view class="section card card-animate" style="animation-delay: 0.06s">
+    <view class="section-title">快捷功能</view>
+    <view class="grid-menu">
+      <view class="grid-item" wx:for="{{menuItems}}" wx:key="id"
+        bindtap="onMenuTap" data-path="{{item.path}}">
+        <view class="grid-icon-wrap" style="background: {{item.bgColor}}">
+          <text class="grid-emoji">{{item.icon}}</text>
+        </view>
+        <text class="grid-label">{{item.label}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 本月发育提醒 -->
+  <view class="section card card-animate" style="animation-delay: 0.12s" wx:if="{{monthTips.length}}">
+    <view class="section-title">
+      <text class="tip-icon">⚡</text>
+      <text>{{ageInfo.months}}月龄该关注</text>
+    </view>
+    <view class="tip-list">
+      <view class="tip-item" wx:for="{{monthTips}}" wx:key="index">
+        <text class="tip-dot">·</text>
+        <text class="tip-text">{{item}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- AI 入口卡片 -->
+  <view class="ai-entry-card gradient-mint card-animate" style="animation-delay: 0.18s"
+    bindtap="goToChat">
+    <text class="ai-emoji">✨</text>
+    <view class="ai-text">
+      <text class="ai-title">有什么育儿困惑？</text>
+      <text class="ai-desc">AI 助手随时为你解答 →</text>
+    </view>
+  </view>
+
+  <!-- 今日推荐 -->
+  <view class="section card card-animate" style="animation-delay: 0.24s" wx:if="{{recommendations.length}}">
+    <view class="section-title">今日推荐</view>
+    <view class="recommend-list">
+      <view class="recommend-item" wx:for="{{recommendations}}" wx:key="id"
+        bindtap="onRecommendTap" data-id="{{item.id}}">
+        <view class="recommend-info">
+          <text class="recommend-title">{{item.title}}</text>
+          <text class="recommend-meta">阅读 {{item.readCount}} · ❤ {{item.likeCount}}</text>
+        </view>
+        <image class="recommend-img" src="{{item.cover}}" mode="aspectFill" />
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态（无宝宝信息时） -->
+  <view class="empty-state" wx:if="{{!babyInfo}}">
+    <text class="empty-emoji">👶</text>
+    <text class="empty-title">欢迎使用安心育儿</text>
+    <text class="empty-desc">先添加宝宝信息，开启智慧育儿之旅</text>
+    <view class="btn-primary" bindtap="goToOnboarding">开始设置</view>
+  </view>
+</view>

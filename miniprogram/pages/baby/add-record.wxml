@@ -1,0 +1,135 @@
+<!--pages/baby/add-record.wxml-->
+<!-- 添加成长记录 -->
+<view class="page-container">
+  <!-- 记录类型选择 -->
+  <view class="type-section">
+    <text class="section-title">记录类型</text>
+    <view class="type-grid">
+      <view class="type-option {{recordType === item.type ? 'active' : ''}}"
+        wx:for="{{typeOptions}}" wx:key="type"
+        bindtap="selectType" data-type="{{item.type}}">
+        <text class="type-icon">{{item.icon}}</text>
+        <text class="type-label">{{item.label}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 日期选择 -->
+  <view class="form-section">
+    <text class="section-title">记录日期</text>
+    <picker mode="date" value="{{recordDate}}" end="{{today}}"
+      bindchange="onDateChange">
+      <view class="date-picker {{recordDate ? 'has-value' : ''}}">
+        <text>{{recordDate || '点击选择日期'}}</text>
+      </view>
+    </picker>
+  </view>
+
+  <!-- ============ 身高体重表单 ============ -->
+  <view class="form-section" wx:if="{{recordType === 'growth'}}">
+    <text class="section-title">身高体重数据</text>
+    <view class="form-card card">
+      <view class="form-group">
+        <text class="form-label">身高 (cm)</text>
+        <input class="form-input" type="digit" placeholder="例: 65.5"
+          value="{{formData.height}}" bindinput="onInput" data-field="height" />
+      </view>
+      <view class="form-group">
+        <text class="form-label">体重 (kg)</text>
+        <input class="form-input" type="digit" placeholder="例: 7.2"
+          value="{{formData.weight}}" bindinput="onInput" data-field="weight" />
+      </view>
+      <view class="form-group">
+        <text class="form-label">头围 (cm，可选)</text>
+        <input class="form-input" type="digit" placeholder="例: 42"
+          value="{{formData.head}}" bindinput="onInput" data-field="head" />
+      </view>
+    </view>
+  </view>
+
+  <!-- ============ 喂养记录表单 ============ -->
+  <view class="form-section" wx:if="{{recordType === 'feeding'}}">
+    <text class="section-title">喂养数据</text>
+    <view class="form-card card">
+      <view class="form-group">
+        <text class="form-label">喂养类型</text>
+        <view class="radio-group">
+          <view class="radio-item {{formData.feedType === '母乳' ? 'active' : ''}}"
+            bindtap="selectFeedType" data-type="母乳">母乳</view>
+          <view class="radio-item {{formData.feedType === '配方奶' ? 'active' : ''}}"
+            bindtap="selectFeedType" data-type="配方奶">配方奶</view>
+          <view class="radio-item {{formData.feedType === '辅食' ? 'active' : ''}}"
+            bindtap="selectFeedType" data-type="辅食">辅食</view>
+        </view>
+      </view>
+      <view class="form-group">
+        <text class="form-label">奶量 (ml，可选)</text>
+        <input class="form-input" type="number" placeholder="例: 150"
+          value="{{formData.amount}}" bindinput="onInput" data-field="amount" />
+      </view>
+    </view>
+  </view>
+
+  <!-- ============ 睡眠记录表单 ============ -->
+  <view class="form-section" wx:if="{{recordType === 'sleep'}}">
+    <text class="section-title">睡眠数据</text>
+    <view class="form-card card">
+      <view class="form-group">
+        <text class="form-label">睡眠时长 (小时)</text>
+        <input class="form-input" type="digit" placeholder="例: 2.5"
+          value="{{formData.duration}}" bindinput="onInput" data-field="duration" />
+      </view>
+      <view class="form-group">
+        <text class="form-label">睡眠质量</text>
+        <view class="radio-group">
+          <view class="radio-item {{formData.quality === '好' ? 'active' : ''}}"
+            bindtap="selectQuality" data-q="好">😊 好</view>
+          <view class="radio-item {{formData.quality === '一般' ? 'active' : ''}}"
+            bindtap="selectQuality" data-q="一般">😐 一般</view>
+          <view class="radio-item {{formData.quality === '差' ? 'active' : ''}}"
+            bindtap="selectQuality" data-q="差">😫 差</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- ============ 里程碑表单 ============ -->
+  <view class="form-section" wx:if="{{recordType === 'milestone'}}">
+    <text class="section-title">里程碑</text>
+    <view class="form-card card">
+      <view class="form-group">
+        <text class="form-label">里程碑内容</text>
+        <input class="form-input" placeholder="例: 第一次翻身、第一次叫妈妈"
+          value="{{formData.milestone}}" bindinput="onInput" data-field="milestone" />
+      </view>
+    </view>
+  </view>
+
+  <!-- ============ 健康/照片/笔记通用表单 ============ -->
+  <view class="form-section" wx:if="{{['health','photo','note'].includes(recordType)}}">
+    <text class="section-title">记录内容</text>
+    <view class="form-card card">
+      <view class="form-group">
+        <text class="form-label">内容描述</text>
+        <textarea class="form-textarea" placeholder="记录宝宝的情况..."
+          value="{{formData.description}}" bindinput="onInput" data-field="description"
+          maxlength="500" auto-height />
+      </view>
+    </view>
+  </view>
+
+  <!-- 备注（所有类型通用） -->
+  <view class="form-section">
+    <text class="section-title">备注（可选）</text>
+    <view class="form-card card">
+      <textarea class="form-textarea" placeholder="添加备注..."
+        value="{{note}}" bindinput="onNoteInput"
+        maxlength="200" auto-height />
+    </view>
+  </view>
+
+  <!-- 提交按钮 -->
+  <view class="submit-section safe-bottom">
+    <view class="btn-primary" bindtap="submitRecord">保存记录</view>
+  </view>
+</view>

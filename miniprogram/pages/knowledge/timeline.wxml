@@ -1,0 +1,58 @@
+<!--pages/knowledge/timeline.wxml-->
+<!-- 月龄百科时间线 -->
+<view class="page-container">
+  <!-- 顶部标题区 -->
+  <view class="header-section gradient-primary">
+    <text class="header-title">月龄百科</text>
+    <text class="header-desc">0-12个月宝宝发育全指南</text>
+    <!-- 当前月龄高亮 -->
+    <view class="current-age-bar" wx:if="{{currentMonth !== null}}">
+      <text class="current-age-text">👶 宝宝当前：{{currentMonthText}}</text>
+    </view>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading-container" wx:if="{{loading}}">
+    <view class="skeleton-card" wx:for="{{[1,2,3,4]}}" wx:key="*this"></view>
+  </view>
+
+  <!-- 时间线列表 -->
+  <scroll-view class="timeline-scroll" scroll-y
+    scroll-into-view="month-{{scrollToMonth}}"
+    enhanced show-scrollbar="{{false}}">
+    <view class="timeline-list">
+      <view class="timeline-item" wx:for="{{timeline}}" wx:key="month"
+        id="month-{{item.month}}">
+        <!-- 时间线左侧装饰 -->
+        <view class="timeline-left">
+          <view class="timeline-dot {{item.month === currentMonth ? 'active' : ''}}">
+            <text class="dot-num">{{item.month}}</text>
+          </view>
+          <view class="timeline-line" wx:if="{{index < timeline.length - 1}}"></view>
+        </view>
+
+        <!-- 月龄卡片 -->
+        <view class="month-card {{item.month === currentMonth ? 'current-month-card' : ''}}"
+          bindtap="goMonthDetail" data-month="{{item.month}}">
+          <view class="card-row">
+            <view class="card-left">
+              <text class="month-title">{{item.title}}</text>
+              <text class="month-summary" wx:if="{{item.sections.length > 0}}">{{item.sections[0].summary}}</text>
+            </view>
+            <view class="current-tag" wx:if="{{item.month === currentMonth}}">
+              <text>当前</text>
+            </view>
+            <text class="arrow">›</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{!loading && timeline.length === 0}}">
+    <text class="empty-icon">📚</text>
+    <text class="empty-title">暂无知识数据</text>
+    <text class="empty-desc">请联系管理员导入知识库</text>
+  </view>
+</view>

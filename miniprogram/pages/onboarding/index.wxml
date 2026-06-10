@@ -1,0 +1,151 @@
+<!--pages/onboarding/index.wxml-->
+<!-- 首次使用引导：分步录入宝宝信息 -->
+<view class="onboarding-container">
+  <!-- 进度条 -->
+  <view class="progress-bar">
+    <view class="progress-fill" style="width: {{(currentStep / totalSteps) * 100}}%"></view>
+  </view>
+  <view class="progress-text">{{currentStep}} / {{totalSteps}}</view>
+
+  <!-- Step 1: 欢迎页 -->
+  <view class="step" wx:if="{{currentStep === 1}}">
+    <view class="welcome-content">
+      <text class="welcome-emoji">👶</text>
+      <text class="welcome-title">欢迎使用安心育儿</text>
+      <text class="welcome-desc">让我们一起记录宝宝的每一步成长\n科学育儿，不再焦虑</text>
+      <view class="feature-list">
+        <view class="feature-item">
+          <text class="feature-icon">📖</text>
+          <text class="feature-text">0-12月龄发育百科</text>
+        </view>
+        <view class="feature-item">
+          <text class="feature-icon">📏</text>
+          <text class="feature-text">成长数据记录追踪</text>
+        </view>
+        <view class="feature-item">
+          <text class="feature-icon">🤖</text>
+          <text class="feature-text">AI 育儿助手 24h 在线</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- Step 2: 宝宝昵称 -->
+  <view class="step" wx:if="{{currentStep === 2}}">
+    <view class="step-content">
+      <text class="step-emoji">✏️</text>
+      <text class="step-title">宝宝叫什么名字？</text>
+      <text class="step-desc">给宝贝起个可爱的小名吧</text>
+      <input class="step-input" placeholder="输入宝宝昵称"
+        value="{{formData.nickname}}" bindinput="onNicknameInput"
+        maxlength="12" focus="{{currentStep === 2}}" />
+    </view>
+  </view>
+
+  <!-- Step 3: 选择性别 -->
+  <view class="step" wx:if="{{currentStep === 3}}">
+    <view class="step-content">
+      <text class="step-emoji">🍼</text>
+      <text class="step-title">{{formData.nickname}}是男孩还是女孩？</text>
+      <text class="step-desc">帮助我们提供更精准的发育参考</text>
+      <view class="gender-selector">
+        <view class="gender-option {{formData.gender === 'male' ? 'active' : ''}}"
+          bindtap="selectGender" data-gender="male">
+          <text class="gender-emoji">👦</text>
+          <text class="gender-label">男宝宝</text>
+        </view>
+        <view class="gender-option {{formData.gender === 'female' ? 'active' : ''}}"
+          bindtap="selectGender" data-gender="female">
+          <text class="gender-emoji">👧</text>
+          <text class="gender-label">女宝宝</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- Step 4: 出生日期 -->
+  <view class="step" wx:if="{{currentStep === 4}}">
+    <view class="step-content">
+      <text class="step-emoji">🎂</text>
+      <text class="step-title">{{formData.nickname}}的出生日期</text>
+      <text class="step-desc">我们会据此计算宝宝的月龄和日龄</text>
+      <picker mode="date" value="{{formData.birthday}}"
+        end="{{today}}" bindchange="onBirthdayChange">
+        <view class="date-picker {{formData.birthday ? 'has-value' : ''}}">
+          <text wx:if="{{formData.birthday}}">{{formData.birthday}}</text>
+          <text wx:else class="placeholder">点击选择出生日期</text>
+        </view>
+      </picker>
+    </view>
+  </view>
+
+  <!-- Step 5: 喂养方式 -->
+  <view class="step" wx:if="{{currentStep === 5}}">
+    <view class="step-content">
+      <text class="step-emoji">🍼</text>
+      <text class="step-title">{{formData.nickname}}的喂养方式</text>
+      <text class="step-desc">帮助 AI 助手给出更准确的喂养建议</text>
+      <view class="feeding-options">
+        <view class="feeding-option {{formData.feedingType === 'breast' ? 'active' : ''}}"
+          bindtap="selectFeeding" data-type="breast">
+          <text class="feeding-emoji">🤱</text>
+          <text class="feeding-label">母乳喂养</text>
+        </view>
+        <view class="feeding-option {{formData.feedingType === 'formula' ? 'active' : ''}}"
+          bindtap="selectFeeding" data-type="formula">
+          <text class="feeding-emoji">🍼</text>
+          <text class="feeding-label">配方奶喂养</text>
+        </view>
+        <view class="feeding-option {{formData.feedingType === 'mixed' ? 'active' : ''}}"
+          bindtap="selectFeeding" data-type="mixed">
+          <text class="feeding-emoji">🥛</text>
+          <text class="feeding-label">混合喂养</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- Step 6: 完成页 -->
+  <view class="step" wx:if="{{currentStep === 6}}">
+    <view class="complete-content">
+      <text class="complete-emoji">🎉</text>
+      <text class="complete-title">设置完成！</text>
+      <view class="baby-summary card">
+        <view class="summary-row">
+          <text class="summary-label">昵称</text>
+          <text class="summary-value">{{formData.nickname}}</text>
+        </view>
+        <view class="summary-row">
+          <text class="summary-label">性别</text>
+          <text class="summary-value">{{formData.gender === 'male' ? '男宝宝 👦' : '女宝宝 👧'}}</text>
+        </view>
+        <view class="summary-row">
+          <text class="summary-label">出生日期</text>
+          <text class="summary-value">{{formData.birthday}}</text>
+        </view>
+        <view class="summary-row">
+          <text class="summary-label">喂养方式</text>
+          <text class="summary-value">{{feedingTypeText}}</text>
+        </view>
+      </view>
+      <text class="complete-desc">接下来，开启智慧育儿之旅吧！</text>
+    </view>
+  </view>
+
+  <!-- 底部按钮 -->
+  <view class="bottom-actions safe-bottom">
+    <view class="btn-back" wx:if="{{currentStep > 1 && currentStep < 6}}"
+      bindtap="goBack">上一步</view>
+    <view class="btn-skip" wx:if="{{currentStep > 1 && currentStep < 5}}"
+      bindtap="skipStep">跳过</view>
+    <view class="btn-primary btn-next"
+      bindtap="goNext"
+      wx:if="{{currentStep < 6}}">
+      {{currentStep === 1 ? '开始设置' : '下一步'}}
+    </view>
+    <view class="btn-primary btn-start"
+      bindtap="goToHome" wx:if="{{currentStep === 6}}">
+      进入首页
+    </view>
+  </view>
+</view>

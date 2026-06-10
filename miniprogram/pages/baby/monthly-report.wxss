@@ -1,0 +1,247 @@
+/* pages/baby/monthly-report.wxss */
+
+/* 顶部 */
+.header-section {
+  padding: var(--space-lg);
+  padding-bottom: var(--space-lg);
+}
+
+.header-title {
+  display: block;
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: var(--space-md);
+}
+
+.month-selector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-lg);
+}
+
+.month-arrow {
+  width: 56rpx;
+  height: 56rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+}
+
+.month-arrow text {
+  color: #FFFFFF;
+  font-size: 24rpx;
+}
+
+.month-text {
+  font-size: 32rpx;
+  color: #FFFFFF;
+  font-weight: 600;
+}
+
+/* 加载 */
+.loading-container {
+  padding: var(--space-lg);
+}
+
+.skeleton-block {
+  height: 180rpx;
+  background: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-md);
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* 宝宝信息条 */
+.baby-info-bar {
+  margin: var(--space-md) var(--space-lg);
+  margin-top: -30rpx;
+  position: relative;
+  z-index: 1;
+}
+
+.baby-mini {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.baby-name {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.baby-age {
+  font-size: 24rpx;
+  color: var(--color-text-secondary);
+}
+
+/* 报告板块 */
+.report-section {
+  padding: var(--space-sm) var(--space-lg);
+}
+
+.section-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-sm);
+}
+
+/* 统计卡片 */
+.stat-card {
+  padding: var(--space-md) 0;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-around;
+}
+
+.stat-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-label {
+  font-size: 22rpx;
+  color: var(--color-text-secondary);
+  margin-bottom: 8rpx;
+}
+
+.stat-value {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.stat-value .unit {
+  font-size: 22rpx;
+  font-weight: 400;
+  color: var(--color-text-secondary);
+  margin-left: 4rpx;
+}
+
+/* 增长提示 */
+.growth-hint {
+  display: flex;
+  align-items: center;
+  margin-top: var(--space-md);
+  padding-top: var(--space-md);
+  border-top: 1rpx solid var(--color-border);
+  gap: var(--space-sm);
+}
+
+.hint-icon {
+  font-size: 28rpx;
+}
+
+.hint-text {
+  font-size: 24rpx;
+  color: var(--color-text-secondary);
+}
+
+/* 里程碑列表 */
+.milestone-list {
+  padding: var(--space-sm) var(--space-lg);
+}
+
+.milestone-item {
+  display: flex;
+  align-items: flex-start;
+  padding: var(--space-sm) 0;
+  gap: var(--space-sm);
+}
+
+.milestone-star {
+  font-size: 28rpx;
+  margin-top: 4rpx;
+}
+
+.milestone-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.milestone-text {
+  font-size: 28rpx;
+  color: var(--color-text-primary);
+  font-weight: 500;
+}
+
+.milestone-date {
+  font-size: 22rpx;
+  color: var(--color-text-hint);
+  margin-top: 4rpx;
+}
+
+/* AI 点评 */
+.ai-review {
+  min-height: 160rpx;
+}
+
+.review-text {
+  font-size: 28rpx;
+  color: var(--color-text-primary);
+  line-height: 1.8;
+  white-space: pre-wrap;
+}
+
+.review-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--space-md) 0;
+}
+
+.placeholder-icon {
+  font-size: 48rpx;
+  margin-bottom: var(--space-sm);
+}
+
+.placeholder-text {
+  font-size: 28rpx;
+  color: var(--color-primary);
+  font-weight: 500;
+  margin-bottom: 4rpx;
+}
+
+.placeholder-desc {
+  font-size: 22rpx;
+  color: var(--color-text-hint);
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80rpx var(--space-lg);
+}
+
+.empty-icon {
+  font-size: 80rpx;
+  margin-bottom: var(--space-lg);
+}
+
+.empty-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-sm);
+}
+
+.empty-desc {
+  font-size: 24rpx;
+  color: var(--color-text-secondary);
+}

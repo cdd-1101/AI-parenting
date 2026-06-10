@@ -1,0 +1,71 @@
+<!--pages/baby/profile.wxml-->
+<!-- 宝宝档案 -->
+<view class="page-container">
+  <!-- 宝宝头像区 -->
+  <view class="avatar-section gradient-primary">
+    <view class="avatar-wrapper" bindtap="changeAvatar">
+      <image class="baby-avatar" src="{{baby.avatarUrl || '/assets/icons/default-avatar.png'}}" mode="aspectFill" />
+      <view class="avatar-edit-badge">
+        <text>换</text>
+      </view>
+    </view>
+    <text class="baby-name">{{baby.nickname || '宝宝'}}</text>
+    <text class="baby-age">{{ageText}}</text>
+  </view>
+
+  <!-- 基本信息卡片 -->
+  <view class="info-section">
+    <view class="section-title">基本信息</view>
+    <view class="info-card card">
+      <view class="info-row flex-between">
+        <text class="info-label">昵称</text>
+        <text class="info-value">{{baby.nickname || '未设置'}}</text>
+      </view>
+      <view class="info-row flex-between">
+        <text class="info-label">性别</text>
+        <text class="info-value">{{baby.gender === 'male' ? '男宝宝 👦' : '女宝宝 👧'}}</text>
+      </view>
+      <view class="info-row flex-between">
+        <text class="info-label">出生日期</text>
+        <text class="info-value">{{baby.birthday}}</text>
+      </view>
+      <view class="info-row flex-between">
+        <text class="info-label">喂养方式</text>
+        <text class="info-value">{{feedingTypeText}}</text>
+      </view>
+      <view class="info-row flex-between">
+        <text class="info-label">血型</text>
+        <text class="info-value">{{baby.bloodType || '未知'}}</text>
+      </view>
+      <view class="info-row flex-between">
+        <text class="info-label">日龄</text>
+        <text class="info-value">{{baby.totalDays}} 天</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 最新数据 -->
+  <view class="info-section" wx:if="{{latestGrowth}}">
+    <view class="section-title">最新数据</view>
+    <view class="stats-card card">
+      <view class="stat-item">
+        <text class="stat-num">{{latestGrowth.height || '--'}}</text>
+        <text class="stat-label">身高 (cm)</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-num">{{latestGrowth.weight || '--'}}</text>
+        <text class="stat-label">体重 (kg)</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-num">{{latestGrowth.head || '--'}}</text>
+        <text class="stat-label">头围 (cm)</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="action-section">
+    <view class="btn-primary" bindtap="editProfile">编辑宝宝信息</view>
+    <view class="btn-secondary" bindtap="goGrowthRecord">查看成长记录</view>
+  </view>
+</view>

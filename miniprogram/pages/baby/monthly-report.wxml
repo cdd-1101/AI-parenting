@@ -1,0 +1,130 @@
+<!--pages/baby/monthly-report.wxml-->
+<!-- 月度成长报告 -->
+<view class="page-container">
+  <!-- 顶部月份选择 -->
+  <view class="header-section gradient-primary">
+    <text class="header-title">月度成长报告</text>
+    <view class="month-selector">
+      <view class="month-arrow" bindtap="prevMonth">
+        <text>◀</text>
+      </view>
+      <text class="month-text">{{reportYear}}年{{reportMonth}}月</text>
+      <view class="month-arrow" bindtap="nextMonth">
+        <text>▶</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading-container" wx:if="{{loading}}">
+    <view class="skeleton-block" wx:for="{{[1,2,3]}}" wx:key="*this"></view>
+  </view>
+
+  <block wx:if="{{!loading}}">
+    <!-- 宝宝信息 -->
+    <view class="baby-info-bar card" wx:if="{{baby}}">
+      <view class="baby-mini">
+        <text class="baby-name">{{baby.nickname}}</text>
+        <text class="baby-age">{{reportMonth}}月龄 · {{baby.gender === 'male' ? '👦' : '👧'}}</text>
+      </view>
+    </view>
+
+    <!-- 身高体重统计 -->
+    <view class="report-section" wx:if="{{growthStats.count > 0}}">
+      <view class="section-title">📏 身高体重</view>
+      <view class="stat-card card">
+        <view class="stat-row">
+          <view class="stat-box">
+            <text class="stat-label">记录次数</text>
+            <text class="stat-value">{{growthStats.count}}</text>
+          </view>
+          <view class="stat-box">
+            <text class="stat-label">最新身高</text>
+            <text class="stat-value">{{growthStats.latestHeight || '--'}}<text class="unit">cm</text></text>
+          </view>
+          <view class="stat-box">
+            <text class="stat-label">最新体重</text>
+            <text class="stat-value">{{growthStats.latestWeight || '--'}}<text class="unit">kg</text></text>
+          </view>
+        </view>
+        <!-- 增长提示 -->
+        <view class="growth-hint" wx:if="{{growthStats.heightDiff !== null}}">
+          <text class="hint-icon">📈</text>
+          <text class="hint-text">本月身高增长 {{growthStats.heightDiff}} cm，体重增长 {{growthStats.weightDiff}} kg</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 喂养统计 -->
+    <view class="report-section" wx:if="{{feedingStats.count > 0}}">
+      <view class="section-title">🍼 喂养记录</view>
+      <view class="stat-card card">
+        <view class="stat-row">
+          <view class="stat-box">
+            <text class="stat-label">记录天数</text>
+            <text class="stat-value">{{feedingStats.count}}</text>
+          </view>
+          <view class="stat-box">
+            <text class="stat-label">平均奶量</text>
+            <text class="stat-value">{{feedingStats.avgAmount || '--'}}<text class="unit">ml</text></text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 睡眠统计 -->
+    <view class="report-section" wx:if="{{sleepStats.count > 0}}">
+      <view class="section-title">😴 睡眠记录</view>
+      <view class="stat-card card">
+        <view class="stat-row">
+          <view class="stat-box">
+            <text class="stat-label">记录次数</text>
+            <text class="stat-value">{{sleepStats.count}}</text>
+          </view>
+          <view class="stat-box">
+            <text class="stat-label">平均时长</text>
+            <text class="stat-value">{{sleepStats.avgDuration || '--'}}<text class="unit">h</text></text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 里程碑 -->
+    <view class="report-section" wx:if="{{milestones.length > 0}}">
+      <view class="section-title">🌟 本月里程碑</view>
+      <view class="milestone-list card">
+        <view class="milestone-item" wx:for="{{milestones}}" wx:key="id">
+          <text class="milestone-star">⭐</text>
+          <view class="milestone-info">
+            <text class="milestone-text">{{item.data.milestone}}</text>
+            <text class="milestone-date">{{item.recordDateStr}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- AI 点评 -->
+    <view class="report-section">
+      <view class="section-title">🤖 AI 成长点评</view>
+      <view class="ai-review card" bindtap="getAIReview">
+        <block wx:if="{{aiReview}}">
+          <text class="review-text">{{aiReview}}</text>
+        </block>
+        <block wx:else>
+          <view class="review-placeholder">
+            <text class="placeholder-icon">✨</text>
+            <text class="placeholder-text">点击生成 AI 成长点评</text>
+            <text class="placeholder-desc">AI 将结合本月记录给出专业分析</text>
+          </view>
+        </block>
+      </view>
+    </view>
+
+    <!-- 无数据 -->
+    <view class="empty-state" wx:if="{{totalRecords === 0}}">
+      <text class="empty-icon">📊</text>
+      <text class="empty-title">本月暂无记录</text>
+      <text class="empty-desc">添加记录后即可查看成长报告</text>
+    </view>
+  </block>
+</view>

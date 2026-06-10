@@ -1,0 +1,220 @@
+/* pages/chat/index.wxss */
+
+.chat-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: var(--color-bg);
+}
+
+/* 聊天滚动区 */
+.chat-scroll {
+  flex: 1;
+  overflow: hidden;
+}
+
+.chat-messages {
+  padding: var(--space-md) var(--space-lg);
+  padding-bottom: var(--space-md);
+}
+
+/* 欢迎消息 */
+.welcome-msg {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80rpx var(--space-lg) 40rpx;
+}
+
+.welcome-emoji {
+  font-size: 80rpx;
+  margin-bottom: var(--space-md);
+}
+
+.welcome-title {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-sm);
+}
+
+.welcome-desc {
+  font-size: 26rpx;
+  color: var(--color-text-secondary);
+  text-align: center;
+  line-height: 1.8;
+  margin-bottom: var(--space-lg);
+}
+
+.quick-questions {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.quick-item {
+  background: var(--color-bg-card);
+  border: 2rpx solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md) var(--space-lg);
+  text-align: center;
+}
+
+.quick-item text {
+  font-size: 26rpx;
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
+.quick-item:active {
+  background: #FFF0EE;
+  border-color: var(--color-primary);
+}
+
+/* 消息气泡 */
+.message {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: var(--space-lg);
+  gap: var(--space-sm);
+}
+
+.message.user {
+  justify-content: flex-end;
+}
+
+.avatar-bubble {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 32rpx;
+}
+
+.ai-avatar {
+  background: var(--color-bg-card);
+  border: 2rpx solid var(--color-border);
+}
+
+.user-avatar {
+  background: var(--color-primary);
+}
+
+/* 气泡样式 */
+.bubble {
+  max-width: 75%;
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius-lg);
+}
+
+.ai-bubble {
+  background: var(--color-bg-card);
+  border: 1rpx solid var(--color-border);
+  border-top-left-radius: 8rpx;
+}
+
+.user-bubble {
+  background: var(--color-primary);
+  border-top-right-radius: 8rpx;
+}
+
+.bubble-text {
+  font-size: 28rpx;
+  line-height: 1.8;
+  word-break: break-all;
+  white-space: pre-wrap;
+}
+
+.ai-bubble .bubble-text {
+  color: var(--color-text-primary);
+}
+
+.user-bubble .bubble-text {
+  color: #FFFFFF;
+}
+
+/* 正在输入动画 */
+.typing-bubble {
+  padding: var(--space-md) var(--space-lg);
+}
+
+.typing-dots {
+  display: flex;
+  gap: 8rpx;
+  align-items: center;
+}
+
+.typing-dots .dot {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  background: var(--color-text-hint);
+  animation: typing-bounce 1.4s infinite ease-in-out;
+}
+
+.typing-dots .dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-dots .dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes typing-bounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30% { transform: translateY(-8rpx); opacity: 1; }
+}
+
+/* 输入区 */
+.input-bar {
+  display: flex;
+  align-items: flex-end;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--color-bg-card);
+  border-top: 1rpx solid var(--color-border);
+  gap: var(--space-sm);
+}
+
+.input-wrapper {
+  flex: 1;
+  background: var(--color-bg-section);
+  border: 2rpx solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-sm) var(--space-md);
+  min-height: 72rpx;
+  display: flex;
+  align-items: center;
+}
+
+.chat-input {
+  width: 100%;
+  font-size: 28rpx;
+  color: var(--color-text-primary);
+  line-height: 1.5;
+  max-height: 200rpx;
+}
+
+.send-btn {
+  background: var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-sm) var(--space-lg);
+  height: 72rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.send-btn.active {
+  background: var(--color-primary);
+}
+
+.send-btn text {
+  font-size: 28rpx;
+  color: #FFFFFF;
+  font-weight: 600;
+}

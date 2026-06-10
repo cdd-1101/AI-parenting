@@ -1,0 +1,60 @@
+{
+  "pages": [
+    "pages/home/index",
+    "pages/knowledge/timeline",
+    "pages/knowledge/month-detail",
+    "pages/baby/profile",
+    "pages/baby/growth-record",
+    "pages/baby/growth-chart",
+    "pages/baby/add-record",
+    "pages/baby/monthly-report",
+    "pages/chat/index",
+    "pages/chat/history",
+    "pages/mine/index",
+    "pages/mine/settings",
+    "pages/mine/favorites",
+    "pages/onboarding/index"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#FFF9F5",
+    "navigationBarTitleText": "安心育儿",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#FFF9F5",
+    "backgroundTextStyle": "dark"
+  },
+  "tabBar": {
+    "color": "#B0B0B0",
+    "selectedColor": "#FF8A80",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/home/index",
+        "text": "首页",
+        "iconPath": "assets/icons/home.png",
+        "selectedIconPath": "assets/icons/home-active.png"
+      },
+      {
+        "pagePath": "pages/knowledge/timeline",
+        "text": "百科",
+        "iconPath": "assets/icons/book.png",
+        "selectedIconPath": "assets/icons/book-active.png"
+      },
+      {
+        "pagePath": "pages/baby/growth-record",
+        "text": "宝宝",
+        "iconPath": "assets/icons/baby.png",
+        "selectedIconPath": "assets/icons/baby-active.png"
+      },
+      {
+        "pagePath": "pages/chat/index",
+        "text": "AI助手",
+        "iconPath": "assets/icons/chat.png",
+        "selectedIconPath": "assets/icons/chat-active.png"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}
